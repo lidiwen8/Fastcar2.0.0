@@ -126,8 +126,8 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public int driverdeleteOrderByid(int orderid)throws Exception {
         int flag = 0;
-        String sql = "update order1 set states=?,drivername=?,drviernumber=?,singletime=? where orderid=?";
-        Object[] params = {0,null,null,null,orderid};
+        String sql = "update order1 set states=?,drivername=?,drviernumber=?,singletime=?,platenumber=? where orderid=?";
+        Object[] params = {0,null,null,null,null,orderid};
         try {
             //事务开始
             mysqlDao.update(sql, params);

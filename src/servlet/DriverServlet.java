@@ -322,7 +322,7 @@ public class DriverServlet extends HttpServlet {
 				   }
 			   } else {
 				   Driver driver = driverService.queryDriver(name);
-				   if (driverService.receiptOrder(orderid, driver.getName(), driver.getNumber()) == 1) {
+				   if (driverService.receiptOrder(orderid, driver.getName(), driver.getNumber(),driver.getPlatenumber()) == 1) {
 					   if (driverService.changedriverstates(name) == 1) {
 						   response.getWriter().print("{\"res\": 1, \"info\":\"接单成功\"}");
 						   return;

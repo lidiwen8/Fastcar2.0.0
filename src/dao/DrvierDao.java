@@ -8,7 +8,7 @@ public interface DrvierDao {
     int insertlogintime(String name)throws Exception;
     Driver queryDriver(String name);
     Driver queryDriver2(String name);
-    int receiptOrder(int orderid,String drivername,String drviernumber) throws Exception;
+    int receiptOrder(int orderid,String drivername,String drviernumber,String platenumber) throws Exception;
     int receiptOrder2(int orderid) throws Exception;
     int changedriverstates(String name) throws Exception;
     int changedriverstates2(String name) throws Exception;

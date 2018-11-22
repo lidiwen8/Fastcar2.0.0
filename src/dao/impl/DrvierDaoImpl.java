@@ -59,12 +59,12 @@ public class DrvierDaoImpl implements DrvierDao {
         return flag;
     }
     @Override
-    public int receiptOrder(int orderid,String drivername,String drviernumber)throws Exception{
+    public int receiptOrder(int orderid,String drivername,String drviernumber,String platenumber)throws Exception{
         int flag=0;
         Date day = new Date();
         SimpleDateFormat da = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//司机接单时间
-        String sql ="update order1 set singletime = ? ,states = ? ,drivername = ?,drviernumber = ? where orderid =?";
-        Object[] params={da.format(day),1,drivername,drviernumber,orderid};
+        String sql ="update order1 set singletime = ? ,states = ? ,drivername = ?,drviernumber = ?,platenumber=? where orderid =?";
+        Object[] params={da.format(day),1,drivername,drviernumber,platenumber,orderid};
         try {
             //事务开始
             mysqlDao.update(sql,params);

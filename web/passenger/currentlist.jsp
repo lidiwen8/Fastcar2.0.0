@@ -58,6 +58,9 @@
                 <c:if test="${not empty order.drivername}">
                     <th>接单司机</th>
                 </c:if>
+                <c:if test="${not empty order.platenumber}">
+                    <th>车牌</th>
+                </c:if>
                 <c:if test="${not empty order.singletime}">
                     <th>司机接单时间</th>
                 </c:if>
@@ -78,6 +81,9 @@
                     <td>${order.taximode}</td>
                     <c:if test="${not empty order.drivername}">
                         <td>${order.drivername}</td>
+                    </c:if>
+                    <c:if test="${not empty order.platenumber}">
+                        <th>${order.platenumber}</th>
                     </c:if>
                     <c:if test="${not empty order.singletime}">
                         <td>${order.singletime}</td>

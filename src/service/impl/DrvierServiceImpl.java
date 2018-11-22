@@ -25,8 +25,8 @@ public class DrvierServiceImpl implements DriverService {
         return drvierDao.queryDriver2(name);
     }
     @Override
-    public int receiptOrder(int orderid,String drivername,String drviernumber) throws Exception {
-        return drvierDao.receiptOrder(orderid,drivername,drviernumber);
+    public int receiptOrder(int orderid,String drivername,String drviernumber,String platenumber) throws Exception {
+        return drvierDao.receiptOrder(orderid,drivername,drviernumber,platenumber);
     }
     @Override
     public int receiptOrder2(int orderid) throws Exception {

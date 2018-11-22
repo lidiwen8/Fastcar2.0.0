@@ -18,7 +18,7 @@ public class Order {
     private String taximode;//打车方式：快车，顺风车，专车，商务车
     private String passengernumber;//乘客联系方式
     private String drviernumber;//司机联系方式
-
+    private String platenumber ;//司机车牌号
     private String evaluate;//评价信息等级：五星级好评，四星级好评，三星级中评，二星级一般，一星级差评
     private String evaluateinfo;//评价详情信息
     private String evaluatetime;//评价时间
@@ -157,5 +157,13 @@ public class Order {
 
     public void setOrderprize(float orderprize) {
         this.orderprize = orderprize;
+    }
+
+    public String getPlatenumber() {
+        return platenumber;
+    }
+
+    public void setPlatenumber(String platenumber) {
+        this.platenumber = platenumber;
     }
 }
