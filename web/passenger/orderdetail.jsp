@@ -38,6 +38,9 @@
                 <th>乘客联系方式</th>
                 <th>司机联系方式</th>
                 <th>叫车类型</th>
+                <c:if test="${not empty order.platenumber}">
+                    <th>车牌</th>
+                </c:if>
                 <th>订单创建日期</th>
                 <th>司机接单时间</th>
                 <th>订单结束日期</th>
@@ -61,6 +64,9 @@
                 <td>${order.passengernumber}</td>
                 <td>${order.drviernumber}</td>
                 <td>${order.taximode}</td>
+                <c:if test="${not empty order.platenumber}">
+                    <th>${order.platenumber}</th>
+                </c:if>
                 <td>${order.createtime}</td>
                 <c:if test="${not empty order.singletime}">
                     <td>${order.singletime}</td>
