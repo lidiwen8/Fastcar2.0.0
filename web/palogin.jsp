@@ -130,7 +130,7 @@
                 <button class="btn btn-success btn-block" type="submit">登录</button>
             </div>
             <div class="col-sm-2  col-xs-6">
-                <a class="btn btn-warning btn-block" href="/paregister.jsp">注册</a>
+                <a class="btn btn-warning btn-block" href="paregister.jsp">注册</a>
             </div>
         </div>
     </form>

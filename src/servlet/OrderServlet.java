@@ -98,12 +98,13 @@ public class OrderServlet extends HttpServlet {
 
     public void queryOrderbydrivername(HttpServletRequest request, HttpServletResponse response)throws Exception{
         HttpSession session = ((HttpServletRequest) request).getSession();
-        String driver = (String) session.getAttribute("driver");//获取登陆司机
-        if (driver.equals(null)) {
-            request.setAttribute("info", "你还没登陆！");
-            ((HttpServletRequest) request).getRequestDispatcher("drlogin.jsp").forward(request, response);
-            return;
-        }
+        try {
+            String driver = (String) session.getAttribute("driver");//获取登陆司机
+            if (driver.equals(null)) {
+                request.setAttribute("info", "你还没登陆！");
+                ((HttpServletRequest) request).getRequestDispatcher("drlogin.jsp").forward(request, response);
+                return;
+            }
         if(orderService.queryOrderbydrivername(driver)!=null) {
             Order order = orderService.queryOrderbydrivername(driver);
             if(order.getStates()==1){
@@ -118,6 +119,11 @@ public class OrderServlet extends HttpServlet {
         }else{
             request.setAttribute("info", "你还没有正在进行中的订单！");
             request.getRequestDispatcher("driver/index.jsp").forward(request,response);
+            return;
+        }
+        }catch (NullPointerException e){
+            request.setAttribute("info", "你还没登陆！");
+            ((HttpServletRequest) request).getRequestDispatcher("drlogin.jsp").forward(request, response);
             return;
         }
     }

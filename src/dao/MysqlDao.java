@@ -1,7 +1,5 @@
 package dao;
-/**
- * Created by QuanQqqqq on 2017/7/6.
- */
+
 
 import util.DBUtil;
 

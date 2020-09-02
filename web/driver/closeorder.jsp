@@ -15,8 +15,8 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
     <title>当前结束的订单</title>
 </head>
 <body>

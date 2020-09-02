@@ -175,6 +175,23 @@ public class DriverServlet extends HttpServlet {
 		}
 
 	}
+
+	private void queryDriverAplication(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = ((HttpServletRequest) request).getSession();
+		String driver = (String) session.getAttribute("driver");//获取登陆司机
+		if(driverService.queryDriver(driver)!=null){
+			Driver driver1=driverService.queryDriver(driver);
+			if(driver1.getExamineStates()==2){
+				request.setAttribute("driver",driver1);
+				request.getRequestDispatcher("driver/application2.jsp").forward(request, response);
+				return;
+			}
+		}else {
+			request.getRequestDispatcher("driver/index.jsp").forward(request, response);
+			return;
+		}
+
+	}
 	private void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String name = request.getParameter("username");
 		String password= request.getParameter("password");
@@ -211,12 +228,8 @@ public class DriverServlet extends HttpServlet {
 								request.getSession().invalidate();//使session无效
 							}
 							login(request,response);
-//							request.setAttribute("info", "系统开了点小差，请再尝试一次登录！");
-//							request.getRequestDispatcher("drlogin.jsp").forward(request, response);
-//							return;
 						}else{
-							request.setAttribute("info", "你已经登录了，不能重复登录！");
-							request.getRequestDispatcher("drlogin.jsp").forward(request, response);
+							response.getWriter().print("{\"res\": 5, \"info\":\"你已经登录了，不能重复登录！\"}");
 							return;
 						}
 					} else {
@@ -230,11 +243,6 @@ public class DriverServlet extends HttpServlet {
 						session.setAttribute("driver", name);//获取用户名
 						driverService.insertlogintime(name);
 						Driver us = driverService.login(name, password);
-						if (us.getSex().equals("男")) {
-							request.setAttribute("info", name + "先生登陆成功，欢迎你！");
-						} else {
-							request.setAttribute("info", name + "女士登陆成功，欢迎你！");
-						}
 						//存入cookie
 						if(rememberme!=null) {
 							//创建两个Cookie对象
@@ -246,23 +254,33 @@ public class DriverServlet extends HttpServlet {
 							response.addCookie(nameCookie);
 							response.addCookie(pwdCookie);
 						}
-//						request.getRequestDispatcher("orderServlet?action=findOrderAll").forward(request, response);
-						request.getRequestDispatcher("driver/index.jsp").forward(request, response);
-						return;
+						if(us.getExamineStates()==2){
+							if (us.getSex().equals("男")) {
+								response.getWriter().print("{\"res\": 2, \"info\":\""+name + "先生登陆成功，欢迎你,但是你递交的司机审核信息未通过，请仔细核实修改后，重新提交！\"}");
+								return;
+							} else {
+								response.getWriter().print("{\"res\": 2, \"info\":\""+name + "女士登陆成功，欢迎你，但是你递交的司机审核信息未通过，请仔细核实修改后，重新提交！\"}");
+								return;
+							}
+						}
+						if (us.getSex().equals("男")) {
+							response.getWriter().print("{\"res\": 1, \"info\":\""+name+ "先生登陆成功，欢迎你！\"}");
+							return;
+						} else {
+							response.getWriter().print("{\"res\": 1, \"info\":\""+name+"女士登陆成功，欢迎你！\"}");
+							return;
+						}
 					}
 				} else {
-					request.setAttribute("info", "用户名或密码错误！");
-					request.getRequestDispatcher("drlogin.jsp").forward(request, response);
+					response.getWriter().print("{\"res\": -1, \"info\":\"用户名或密码错误！\"}");
 					return;
 				}
 			}else {
-				request.setAttribute("info", "验证码错误！");
-				request.getRequestDispatcher("drlogin.jsp").forward(request, response);
+				response.getWriter().print("{\"res\": 3, \"info\":\"验证码错误！\"}");
 				return;
 			}
 		}else {
-			request.setAttribute("info", "请输入用户名和密码！");
-			request.getRequestDispatcher("drlogin.jsp").forward(request, response);
+			response.getWriter().print("{\"res\": 4, \"info\":\"请输入用户名和密码！\"}");
 			return;
 		}
 	}

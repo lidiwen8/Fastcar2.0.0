@@ -28,11 +28,11 @@ public class JDBCUtil {
 		}
 		return conn;
 	}
-	
+
 	// 关闭连接
 	public static void closeConn(ResultSet rs,Statement st,Connection conn) {
 		try {
-			if(rs!=null) 
+			if(rs!=null)
 				rs.close();
 			if(st!=null)
 				st.close();
@@ -42,7 +42,7 @@ public class JDBCUtil {
 			System.out.println("JDBC close error");
 		}
 	}
-	
+
 	/*
 	public static void main(String [] args) {
 		Connection conn = JDBCUtil.getConn();
@@ -52,6 +52,6 @@ public class JDBCUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	} 
+	}
 	*/
 }

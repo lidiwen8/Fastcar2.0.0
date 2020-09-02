@@ -6,9 +6,9 @@ public class Order {
     private String username;//乘客姓名
     private String drivername;//司机姓名
     private String origin;//起始点
-
+    private double distance;//直线距离
     private String destination;//终点
-
+//    private Driver driver; 司机作为实体插入到订单实体中
     private String createtime;//订单创建时间
     private String singletime;//司机接单时间
     private String endtime;//订单结束时间
@@ -165,5 +165,13 @@ public class Order {
 
     public void setPlatenumber(String platenumber) {
         this.platenumber = platenumber;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 }

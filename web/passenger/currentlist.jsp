@@ -51,6 +51,7 @@
                 <th>乘客</th>
                 <th>起始点</th>
                 <th>终点</th>
+                <th>直线距离</th>
                 <c:if test="${not empty order.drviernumber}">
                     <th>司机联系方式</th>
                 </c:if>
@@ -75,6 +76,12 @@
                     <td>${order.username}</td>
                     <td>${order.origin}</td>
                     <td>${order.destination}</td>
+                    <c:if test="${not empty order.distance}">
+                        <td>${order.distance}km</td>
+                    </c:if>
+                    <c:if test="${empty order.distance}">
+                        <td>暂无</td>
+                    </c:if>
                     <c:if test="${not empty order.drviernumber}">
                         <td>${order.drviernumber}</td>
                     </c:if>
@@ -92,10 +99,14 @@
                     <td>${order.statesmean}</td>
                     <td>
                         <button class="btn btn-primary btn-sm edit_btn" onclick="javascript:window.location.href='orderServlet?action=findOrderbyorderid&id=${order.orderid}'"><span class="glyphicon glyphicon-pencil">详情</span></button>
+                    </td>
+                    <td>
                         <button class="btn btn-danger btn-sm delete_btn" onclick="deleteOrderByid(${order.orderid})"><span class="glyphicon glyphicon-trash">取消订单</span></button>
-                        <c:if test="${order.states==4}">
+                    </td><c:if test="${order.states==4}">
                             <button class="btn btn-primary btn-sm edit_btn" onclick="javascript:window.location.href='passengerServlet?action=passengerpayment&id=${order.orderid}'">支付</button>
                          </c:if>
+                    </td>
+                    <td>
                         <button type="button" class="btn btn-success" onclick="javascript:window.location.href='passenger/index.jsp'">返回</button>
                     </td>
                 </tr>

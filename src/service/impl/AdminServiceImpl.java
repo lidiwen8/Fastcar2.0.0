@@ -4,6 +4,7 @@ import dao.AdminDao;
 import dao.impl.AdminDaoImpl;
 import entity.Admin;
 import entity.Driver;
+import entity.Order;
 import entity.Passenger;
 import service.AdminService;
 import util.PageBean;
@@ -21,6 +22,9 @@ public class AdminServiceImpl implements AdminService {
     }
     public PageBean<Driver> findAllDriverByexamineStates(int pc, int pr,int states){
         return  adminDao.findAllDriverByexamineStates(pc,pr,states);
+    }
+    public PageBean<Order> findAllCloseOrder(int pc, int pr, int states){
+        return  adminDao.findAllCloseOrder(pc,pr,states);
     }
     public int changedriverexamineStates(int driverid) throws Exception{
         return  adminDao.changedriverexamineStates(driverid);

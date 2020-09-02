@@ -15,10 +15,10 @@
 <head>
     <title>乘客信息</title>
     <base href="<%=basePath%>">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
-    <script src="/jquery/jquery-2.2.4.min.js" type="text/javascript"></script>
-    <script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <script src="jquery/jquery-2.2.4.min.js" type="text/javascript"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse">

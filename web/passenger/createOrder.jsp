@@ -16,18 +16,52 @@
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/bootstrapvalidator/css/bootstrapValidator.css">
-<script src="/jquery/jquery-2.2.4.min.js" type="text/javascript"></script>
-<script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="bootstrapvalidator/css/bootstrapValidator.css">
+<script src="jquery/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- 表单验证 -->
-<script src="/bootstrapvalidator/js/bootstrapValidator.js" type="text/javascript"></script>
-    <link href="/css/bootstrap-select.min.css" rel="stylesheet" />
-    <script src="/js/bootstrap-select.min.js"></script>
+<script src="bootstrapvalidator/js/bootstrapValidator.js" type="text/javascript"></script>
+    <link href="css/bootstrap-select.min.css" rel="stylesheet" />
+    <script src="js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6tYzTvGZSOpYB5Oc2YGGOKt8"></script>
     <title>乘客创建订单</title>
+    <style type="text/css">
+        body, html {width: 100%;height: 100%; margin:0;font-family:"微软雅黑";}
+        #allmap{height:320px;width:100%;}
+        #r-result,#r-result table{width:100%;}
+    </style>
 <script type="text/javascript">
+    var locationla;//当前位置经度
+    var locationdi;//当前位置维度
     $(function(){
+        //ip定位，精度为城市级别
+        function myFun(result){
+            var cityName = result.name;
+            $("#hidden1_region").val(cityName);
+            $("#hidden1_region1").val(cityName);
+        }
+        var myCity = new BMap.LocalCity();
+        myCity.get(myFun);
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function(r){
+            if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                locationla=r.point.lng;
+                locationdi=r.point.lat;
+                // 百度地图API功能
+                var map = new BMap.Map("allmap");
+                map.centerAndZoom(new BMap.Point(locationla,locationdi),12);  // 当前地图的中心点经纬度
+                map.enableScrollWheelZoom(true);
+            }
+            else {
+                alert('获取当前位置经纬度失败'+this.getStatus());
+            }
+        });
+        // 百度地图API功能
+        var map = new BMap.Map("allmap");
+        map.centerAndZoom(new BMap.Point(113.547343,22.358211),12);  // 当前地图的中心点经纬度
+        map.enableScrollWheelZoom(true);
         validateForm();
     });
 
@@ -110,9 +144,77 @@
             createOrder();
         }
     }
+    function querymap() {
+            var map = new BMap.Map("allmap");
+            map.centerAndZoom(new BMap.Point(113.547343,22.358211),12);  // 当前地图的中心点经纬度（珠海）
+            map.enableScrollWheelZoom(true);
+            var start = $("#theid1").val();
+            var end = $("#theid2").val();
+            map.clearOverlays();
+            var i=$("#driving_way select").val();
+            if(start != '' && end != ''&&start!=null&&end!=null){
+                searchPointWay(start,end);
+            }else{
+                alert('起终点地址都不能为空！');
+            }
+
+            function searchPointWay(start,end){
+                var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+                driving.search(start,end);
+            }
+    }
 </script>
+    <script>
+        $(document).ready(function(){
+            $("#query").keydown(function(){
+                $("#theid1").empty();
+                $.post("<%=basePath%>/passengerServlet?action=queryinput",
+                    {
+                        region:$("#hidden1_region").val(),
+                        query:$("#query").val()
+                    },
+                    function(result){
+
+                        var jsobject = JSON.parse(result);
+                        var theme1=$("select[name='theid1']");
+                        for (var i = 0; i < jsobject.result.length; i++) {
+
+                            // $(".addresstop").append("<div class='addressli'>"
+                            //     +"<div class='addressli2'>"+jsobject.result[i].name+"</div>"
+                            //     +"<div class='addressli3'>"+jsobject.result[i].city+""+jsobject.result[i].district+"</div></div>");
+                            theme1.append("<option value='"+jsobject.result[i].name+jsobject.result[i].city+""+jsobject.result[i].district+"'>"+jsobject.result[i].name+jsobject.result[i].city+""+jsobject.result[i].district+"</option>");
+                        }
+
+
+                    });
+            });
+            $("#query1").keydown(function(){
+                $("#theid2").empty();
+                $.post("<%=basePath%>/passengerServlet?action=queryinput",
+                    {
+                        region:$("#hidden1_region1").val(),
+                        query:$("#query1").val()
+                    },
+                    function(result){
+
+                        var jsobject = JSON.parse(result);
+                        var theme2=$("select[name='theid2']");
+                        for (var i = 0; i < jsobject.result.length; i++) {
+
+                            // $(".addresstop1").append("<div class='addressli'>"
+                            //     +"<div class='addressli2'>"+jsobject.result[i].name+"</div>"
+                            //     +"<div class='addressli3'>"+jsobject.result[i].city+""+jsobject.result[i].district+"</div></div>");
+                            theme2.append("<option value='"+jsobject.result[i].name+jsobject.result[i].city+""+jsobject.result[i].district+"'>"+jsobject.result[i].name+jsobject.result[i].city+""+jsobject.result[i].district+"</option>");
+                        }
+
+
+                    });
+            });
+        });
+    </script>
 </head>
 <body>
+<div id="allmap"></div>
 <div class="container">
     <div class="row">
         <div class="col-sm-offset-3 col-sm-6 text-center">
@@ -120,18 +222,26 @@
         </div>
     </div>
     <form class="form-horizontal col-sm-offset-3" id="orderform">
+        <div id="driving_way">
         <div class="form-group">
             <label for="origin" class="col-sm-2 control-label">起点：</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" name="origin" id="origin" placeholder="从哪儿出发">
+                <input type="text" class="form-control" name="origin" id="query" placeholder="从哪儿出发">
+                <input type="hidden" id="hidden1_region" name="city1">
                 <span class="help-block1" style="color: #a94442"></span>
+                <select class="form-control" name="theid1" id="theid1" onmouseover="size=10;" onmouseout="size=1;" onchange="size=1;">
+                </select>
             </div>
         </div>
         <div class="form-group">
             <label for="destination" class="col-sm-2 control-label">终点：</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="destination" name="destination" placeholder="你要去哪儿">
+                <input type="text" class="form-control" id="query1" name="destination" placeholder="你要去哪儿">
+                <input type="hidden" id="hidden1_region1" name="city2">
+                <select class="form-control" name="theid2" id="theid2" onmouseover="size=10;" onmouseout="size=1;" onchange="size=1;">
+                </select>
             </div>
+        </div>
         </div>
         <%--<div class="dropdown" name="taximode" id="taximode">--%>
             <%--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">--%>
@@ -161,6 +271,11 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-4 col-xs-12">
+                <button class="btn btn-primary" id="result" onclick="querymap()">查询路线</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-4 col-xs-12">
                 <button class="btn btn-success btn-block" id="btn btn-success btn-block" onclick="gg()">发出订单</button>
             </div>
         </div>
@@ -169,6 +284,7 @@
                 <a href="passenger/index.jsp">返回</a>
             </div>
         </div>
+        <div id="r-result"></div>
     </form>
 </div>
 </body>

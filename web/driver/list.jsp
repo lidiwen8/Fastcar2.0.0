@@ -15,10 +15,10 @@
 <head>
     <title>订单信息</title>
     <base href="<%=basePath%>">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
-    <script src="/jquery/jquery-2.2.4.min.js" type="text/javascript"></script>
-    <script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <script src="jquery/jquery-2.2.4.min.js" type="text/javascript"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
     <script>
         function receiptOrderByid(orderid) {
             if (confirm("确认选择当前订单接单吗？")) {
@@ -39,7 +39,7 @@
                             window.location.replace("orderServlet?action=queryOrderbydrivername");
                         }else if(data.res==3){
                             alert(data.info);
-                            window.location.replace("driver/application.jsp");
+                            window.location.replace("driverServlet?action=queryDriverAplication");
                         }else if(data.res==4){
                             alert(data.info);
                             window.location.replace("driverServlet?action=queryDriver");
@@ -67,6 +67,7 @@
                 <th>乘客</th>
                 <th>起始点</th>
                 <th>终点</th>
+                <th>直线距离</th>
                 <th>乘客联系方式</th>
                 <th>叫车类型</th>
                 <th>订单创建日期</th>
@@ -82,6 +83,7 @@
                     <td>${cstm.username}</td>
                     <td>${cstm.origin}</td>
                     <td>${cstm.destination}</td>
+                    <td>${cstm.distance}km</td>
                     <td>${cstm.passengernumber}</td>
                     <td>${cstm.taximode}</td>
                     <td>${cstm.createtime}</td>

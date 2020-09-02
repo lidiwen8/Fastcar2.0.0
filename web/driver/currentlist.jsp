@@ -97,6 +97,7 @@
                 <th>乘客</th>
                 <th>起始点</th>
                 <th>终点</th>
+                <th>直线距离</th>
                 <th>乘客联系方式</th>
                 <th>叫车类型</th>
                 <th>订单创建日期</th>
@@ -111,6 +112,12 @@
                     <td>${order.username}</td>
                     <td>${order.origin}</td>
                     <td>${order.destination}</td>
+                    <c:if test="${not empty order.distance}">
+                        <td>${order.distance}km</td>
+                    </c:if>
+                    <c:if test="${empty order.distance}">
+                        <td>暂无</td>
+                    </c:if>
                     <td>${order.passengernumber}</td>
                     <td>${order.taximode}</td>
                     <td>${order.createtime}</td>

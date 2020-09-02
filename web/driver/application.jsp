@@ -17,15 +17,15 @@
     <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="/bootstrapvalidator/css/bootstrapValidator.css">
-    <link rel="stylesheet" href="/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
-    <script src="/jquery/jquery-2.2.4.min.js" type="text/javascript"></script>
-    <script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrapvalidator/css/bootstrapValidator.css">
+    <link rel="stylesheet" href="bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <script src="jquery/jquery-2.2.4.min.js" type="text/javascript"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
     <!-- 表单验证 -->
-    <script src="/bootstrapvalidator/js/bootstrapValidator.js" type="text/javascript"></script>
-    <script src="/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
-    <script src="/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+    <script src="bootstrapvalidator/js/bootstrapValidator.js" type="text/javascript"></script>
+    <script src="bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+    <script src="bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
     <script type="text/javascript">
         $.fn.datetimepicker.dates['zh-CN'] = {
             days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
@@ -176,7 +176,7 @@
         }
 
         function application() {
-            // 异步添加学生
+            // 异步提交申请信息
             $.ajax({
                 url : "driverServlet?action=application",// 请求地址
                 type : "POST", // 请求类型

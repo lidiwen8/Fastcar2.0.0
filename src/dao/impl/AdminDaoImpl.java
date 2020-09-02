@@ -4,6 +4,7 @@ import cn.itcast.jdbc.TxQueryRunner;
 import dao.AdminDao;
 import entity.Admin;
 import entity.Driver;
+import entity.Order;
 import entity.Passenger;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -85,6 +86,27 @@ public class AdminDaoImpl implements AdminDao {
             sql="select * from driver where examineStates= ? order by driverid limit ?,?";
             Object[] params={states,(pc-1)*pr,pr};
             List<Driver> beanList=mysqlDao.query(sql,new BeanListHandler<>(Driver.class),params);
+            pb.setBeanList(beanList);
+            return pb;
+        }catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public PageBean<Order> findAllCloseOrder(int pc, int pr, int states){
+        try{
+            PageBean<Order> pb=new PageBean<>();
+            pb.setPc(pc);
+            pb.setPr(pr);
+            String sql="select count(*) from order1 where states= ?";
+            Object[] param={states};
+            Number number=(Number) mysqlDao.query(sql,new ScalarHandler<>(),param);
+            int tr=number.intValue();
+            pb.setTr(tr);
+            sql="select * from order1 where states= ? order by orderid limit ?,?";
+            Object[] params={states,(pc-1)*pr,pr};
+            List<Order> beanList=mysqlDao.query(sql,new BeanListHandler<>(Order.class),params);
             pb.setBeanList(beanList);
             return pb;
         }catch (Exception e)

@@ -167,6 +167,23 @@ public class AdminServlet extends HttpServlet {
         return "f:admin/drvierlist.jsp";
     }
 
+    public String findAllCloseOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int pc = getPc(request);
+        int pr = 5;//给定pr的值，每页5行纪录
+        try {
+            PageBean<Order> pb = adminService.findAllCloseOrder(pc,pr,2);//查找结束的订单
+            pb.setUrl(getUrl(request));
+            request.setCharacterEncoding("utf-8");
+            request.setAttribute("pb", pb);
+        }catch (RuntimeException e){
+            request.setAttribute("info", "系统出错了！");
+            request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+            return "admin/index.jsp";
+        }
+        request.getRequestDispatcher("admin/orderlist.jsp").forward(request,response);
+        return "f:admin/orderlist.jsp";
+    }
+
     public String findAllDriverBynopass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int pc = getPc(request);
         int pr = 5;//给定pr的值，每页5行纪录

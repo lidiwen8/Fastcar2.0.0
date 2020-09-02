@@ -15,10 +15,10 @@
 <head>
     <title>订单信息</title>
     <base href="<%=basePath%>">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
-    <script src="/jquery/jquery-2.2.4.min.js" type="text/javascript"></script>
-    <script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <script src="jquery/jquery-2.2.4.min.js" type="text/javascript"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
     <script>
         function deleteOrderByid(orderid) {
             if (confirm("确认取消当前订单吗？")) {
@@ -56,6 +56,7 @@
                 <th>乘客</th>
                 <th>起始点</th>
                 <th>终点</th>
+                <th>直线距离</th>
                 <th>乘客联系方式</th>
                 <th>叫车类型</th>
                 <th>订单创建日期</th>
@@ -71,6 +72,12 @@
                     <td>${cstm.username}</td>
                     <td>${cstm.origin}</td>
                     <td>${cstm.destination}</td>
+                    <c:if test="${not empty cstm.distance}">
+                    <td>${cstm.distance}km</td>
+                    </c:if>
+                    <c:if test="${empty cstm.distance}">
+                        <td>暂无</td>
+                    </c:if>
                     <td>${cstm.passengernumber}</td>
                     <td>${cstm.taximode}</td>
                     <td>${cstm.createtime}</td>

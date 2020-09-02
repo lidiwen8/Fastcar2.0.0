@@ -101,8 +101,8 @@ public class PassengerDaoImpl implements PassengerDao {
     @Override
     public int createOrder(Order order) throws Exception{
         int flag=0;
-        String sql ="insert into order1(username,origin,destination,createtime,states,taximode,passengernumber) values(?,?,?,?,?,?,?)";
-        Object[] params={order.getUsername(),order.getOrigin() ,order.getDestination(),order.getCreatetime(),order.getStates(),order.getTaximode(),order.getPassengernumber()};
+        String sql ="insert into order1(username,origin,destination,createtime,states,taximode,passengernumber,distance) values(?,?,?,?,?,?,?,?)";
+        Object[] params={order.getUsername(),order.getOrigin() ,order.getDestination(),order.getCreatetime(),order.getStates(),order.getTaximode(),order.getPassengernumber(),order.getDistance()};
         try {
             //事务开始
             mysqlDao.update(sql,params);

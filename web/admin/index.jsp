@@ -13,9 +13,9 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css">
-<link rel="stylesheet" href="/bootstrapvalidator/css/bootstrapValidator.css">
-<script src="/jquery/jquery-2.2.4.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
+<link rel="stylesheet" href="bootstrapvalidator/css/bootstrapValidator.css">
+<script src="jquery/jquery-2.2.4.min.js" type="text/javascript"></script>
 <head>
   <title>主页面</title>
   <base href="<%=basePath%>">
@@ -38,6 +38,9 @@
           });
           $("#6").click(function(){
               window.location.href='adminServlet?action=findAllDriverBynopass';
+          });
+          $("#7").click(function(){
+              window.location.href='adminServlet?action=findAllCloseOrder';
           });
       })
       function loadmsg() {
@@ -73,6 +76,11 @@
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-2 col-xs-6">
       <button class="btn btn-info" type="button" id="6">查看审核不通过的司机</button>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-2 col-xs-6">
+      <button class="btn btn-default" type="button" id="7">查看平台已结束的订单</button>
     </div>
   </div>
   <div class="form-group">

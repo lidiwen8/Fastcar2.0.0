@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class GeneralDao {
-	
+
 	// 更新操作，添加、删除，修改
 	public static int update(String sql, Object[] values) {
 
@@ -32,7 +32,7 @@ public class GeneralDao {
 		}
 		return successCount;
 	}
-	
+
 	// 查询操作，返回一个离线结果集
 	public static CachedRowSetImpl queryCached(String sql, Object[] values) {
 		Connection conn = JDBCUtil.getConn();
@@ -53,7 +53,7 @@ public class GeneralDao {
 		}
 		return rowSet;
 	}
-	
+
 
 	// 查询，返回一个对象
 	public static Object query(String sql, Object[] values, RowMapper rowMapper) {
@@ -93,10 +93,10 @@ public class GeneralDao {
 			JDBCUtil.closeConn(rs,preStmt,conn);
 		}
 		if (list == null || list.isEmpty() || list.size() == 0) {
-			return null;	
+			return null;
 		}
 		return list;
 	}
-	
+
 }
 
